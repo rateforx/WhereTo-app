@@ -1,0 +1,14 @@
+extends ../_bootstrap
+
+append body
+    include nav
+
+    .container
+        +panel-primary("Sign up form")
+            form(method='post' action='/register')
+                //-+input(_type_, _id_, _label_, ?placeholder?)
+                +input("text", "forname", "Name", 'name')
+                //+input-group('Sex', "")
+
+                +radio-inline("Male", 'sex')
+                +radio-inline("Female", 'sex')
