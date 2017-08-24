@@ -1,15 +1,16 @@
 extends ../_bootstrap
 
+append head
+    title Register
+
 append body
     include nav
 
     .container
         +panel-primary("Sign up form")
-            form(method='POST')
-                //-+input(_type_, _id_, _label_, ?placeholder?)
-                label(for='name') Name
-                input.form-control#name(name='name')
-                //.input-group
-                        span.input-group-addon Name
-                        input.form-control
+            form(method='post')
+                +input('text', 'name', 'Name', {
+                    required: true,
+                    maxlength: 64
+                })
                 +input('submit')

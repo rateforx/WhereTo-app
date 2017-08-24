@@ -1,29 +1,33 @@
 //-extends ../node_modules/pug-bootstrap/_bootstrap
 extends ../_bootstrap
 
+append head
+    title #{title}
+
 append body
     include nav
 
     .container
+
         +carousel("caro",[
             {
-                image: "/images/caro1.jpg",
+                image: "/pics/caro1.jpg",
                 p: "Fast and effective delivery service since 1911.",
                 button: {
                     caption: "Sign up now",
-                    url: "/signup"
+                    url: "/register"
                 }
             },
             {
-                image: "/images/caro2.jpg",
+                image: "/pics/caro2.jpg",
                 p: "For professionals by professionals.",
                 button: {
                     caption: "Sign up now",
-                    url: "/signup"
+                    url: "/register"
                 }
             },
             {
-                image: "/images/caro3.jpg",
+                image: "/pics/caro3.jpg",
                 p: "Best service, saticfaction guaranteed.",
                 button: {
                     caption: "Sign up now",

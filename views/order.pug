@@ -1,0 +1,34 @@
+extends ../_bootstrap
+
+append body
+    include nav
+
+    .container
+        +panel-primary('Order form')
+            form(method='POST')
+                +input('number', '', 'Origin X', {
+                    name: "originx"
+                    min: -180,
+                    max: 180
+                })
+                +input('number', '', 'Origin Y', {
+                    name: "originy"
+                })
+
+                +input('number', '', 'Destination X', {
+                    name: "destinationx"
+                })
+                +input('number', '', 'Destination X', {
+                    name: "destinationy"
+                })
+
+                +input('date', '', 'Expiration', {
+                    name: "expiration"
+                })
+                +input('number', '', 'Weight', {
+                    name: "weight"
+                })
+                +textarea('', 'Cargo', {
+                    name: 'cargo'
+
+                })

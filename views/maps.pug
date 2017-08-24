@@ -5,13 +5,66 @@ append body
 
     .container
         +panel-primary("Route finder")
-            //form(method='post')
-            +input('text', 'origin', 'Origin')
-            +input('text', 'dest', 'Destination')
-            +input('button',
+            form(method='post' action='#')
+                +input('text', 'origin', 'Origin')
+                +input('text', 'dest', 'Destination')
+                +input('submit', 'search', 'Set route', {
+                    onClick: ''
+                })
+                script.
+                    function searchRoute() {
+                            let origin = $('#origin').val();
+                            let dest = $('#dest').val();
 
-            iframe#map(
-                width='800',
-                height='600',
-                src='https://google.com/maps/embed/v1/place?key'
-                )
+                            let map = new google.maps.Map($('#map')[0], {})
+                    }
+
+                #map(style = 'height: 500px; width: 100%;')
+                    script.
+                        function initMap() {
+                            /*let pwszNysa = {
+                             lat: 50.474719,
+                             lng: 17.337728
+                             };
+
+                             let map = new google.maps.Map($('#map')[0], {
+                             zoom: 17,
+                             center: pwszNysa
+                             });
+
+                             let marker = new google.maps.Marker({
+                             position: pwszNysa,
+                             map: map
+                             });*/
+                            let service = new google.maps.DirectionsService;
+                            let renderer = new google.maps.DirectionsRenderer;
+                            let map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 7,
+                                center: {lat: 41.85, lng: -87.65}
+                            });
+                            renderer.setMap(map);
+
+                            let onChangeHandler = function () {
+                                calcRoute(service, renderer);
+                            };
+                            $('#origin, #dest').on('change', onChangeHandler);
+                        }
+
+                        function calcRoute(service, renderer) {
+                            service.route({
+                                origin: document.getElementById('start').value,
+                                destination: document.getElementById('end').value,
+                                travelMode: 'DRIVING'
+                            }, function (response, status) {
+                                if (status === 'OK') {
+                                    renderer.setDirections(response);
+                                } else {
+                                    window.alert('Directions request failed due to ' + status);
+                                }
+                            });
+
+                        }
+
+                    script(async, defer, type='text/javascript',
+                    src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo&callback=initMap'
+                    )
