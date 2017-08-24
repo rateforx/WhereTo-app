@@ -1,21 +1,16 @@
-# jadebootstrap-seed
-[JADE-Bootstrap](http://rajasegar.github.io/JADE-Bootstrap/) boilerplate project for [NodeJS](http://nodejs.org/) using [Express](http://expressjs.com) middleware
+#Giełda zleceń transportowych
 
-## Quick Start
+##Role:
+    - klient (zleceniodawca)
+    - przewoźnik (zleceniobiorca)
+    - administrator
 
-  The quickest way to get started with this boilerplate is to install the packages first and use the npm script to start the application as shown below:
+##Ficzursy
 
-  Install the packages.
-
-```bash
-$ git clone https://github.com/rajasegar/jadebootstrap-seed.git
-$ cd jadebootstrap-seed
-$ npm install
-$ npm start
-```
-## Features
-
-  * Bootstrap set as the default UI framework
-  * Pug set as the default Template engine
-  * Focus on high performance
-  * Super-speed development using Pug mixins
+* Klient dodaje propozycje zlecenia przewozu. Podaje parametry (waga, skąd, dokąd, ramy czasowe, ładunek).
+* Przewoźnik przegląda zlecenia i wybiera najbardziej mu odpowiadające po czym wysyła klientowi oferte cenową.
+* Jeśli obie strony zgodzą się na warunki zlecenie zostaje przypisane przewoźnikowi.
+* Integracja z google maps api.
+* Trzy panele użytkownika: klient, przedsiębiorca, kierowca.
+* Pilnowanie godzin pracy kierowcy.
+* Kierowca aktualizuje status swojego zlecenia (w trasie, dostarczone).
