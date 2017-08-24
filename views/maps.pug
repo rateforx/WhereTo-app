@@ -1,0 +1,17 @@
+extends ../_bootstrap
+
+append body
+    include nav
+
+    .container
+        +panel-primary("Route finder")
+            //form(method='post')
+            +input('text', 'origin', 'Origin')
+            +input('text', 'dest', 'Destination')
+            +input('button',
+
+            iframe#map(
+                width='800',
+                height='600',
+                src='https://google.com/maps/embed/v1/place?key'
+                )
