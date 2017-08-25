@@ -1,8 +1,7 @@
-//-extends ../node_modules/pug-bootstrap/_bootstrap
 extends ../_bootstrap
 
 append head
-    title #{title}
+    title Home | WhereTo
 
 append body
     include nav
@@ -11,7 +10,7 @@ append body
 
         +carousel("caro",[
             {
-                image: "/pics/caro1.jpg",
+                image: "/pics/caro1.png",
                 p: "Fast and effective delivery service since 1911.",
                 button: {
                     caption: "Sign up now",

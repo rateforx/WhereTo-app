@@ -11,8 +11,8 @@ app.get('/contact', (req, res) => res.render('contact'));
 app.get('/register', (req, res) => res.render('register'));
 app.post('/register', (req, res) => res.send(req.body));
 
-app.get('/maps', (req, res) => res.render('maps'));
-app.post('/maps', (req, res) => res.send(req.body));
+app.get('/order', (req, res) => res.render('order'));
+app.post('/order', (req, res) => res.send(req.body));
 
 app.get('/admin', (req, res) => res.sendStatus(401));
 
