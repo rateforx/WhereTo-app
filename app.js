@@ -5,9 +5,9 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
-let googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo'
-});
+//let googleMapsClient = require('@google/maps').createClient({
+//     key: 'AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo'
+// });
 
 let routes = require('./routes/index');
 let users = require('./routes/users');

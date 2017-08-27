@@ -2,10 +2,14 @@ let express = require('express');
 // let router = express.Router();
 let app = express();
 
+let User = require('../models/User')
+
 /* GET home page. */
 app.get('/', (req, res) => {
-    let users
-    res.render('index', )
+    let user =
+    res.render('index', {
+        users: users,
+    })
 });
 
 app.get('/about', (req, res) => res.render('about'));

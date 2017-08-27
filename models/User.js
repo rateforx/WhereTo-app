@@ -15,10 +15,10 @@ User.findById = (id, callback) => {
             if (err) return console.warn(err.message);
             console.log(results);
             console.log(fields);
+            callback();
         }
     )
-};
 
-User
+};
 
 module.exports = User;
