@@ -3,7 +3,10 @@ let express = require('express');
 let app = express();
 
 /* GET home page. */
-app.get('/', (req, res) => res.render('index'));
+app.get('/', (req, res) => {
+    let users
+    res.render('index', )
+});
 
 app.get('/about', (req, res) => res.render('about'));
 app.get('/contact', (req, res) => res.render('contact'));

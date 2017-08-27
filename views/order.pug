@@ -81,7 +81,7 @@ append body
 
     .container
         +panel-primary('Order form')
-            form(method='POST')
+            form(method='post')
                 +input('text', 'origin', 'Origin')
                 +input('text', 'dest', 'Destination')
 
@@ -90,6 +90,15 @@ append body
                     script(async, defer, type = 'text/javascript',
                     src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo&callback=initMap&libraries=places'
                     )
+                fieldset.form-group
+                    label Distance
+                    p#dist N/A
+                input(type='hidden', name='dist')
+
+                fieldset.form-group
+                    label Duration
+                    p#duration N/A
+                input(type='hidden', name='duration')
 
                 +input('date', 'exp', 'Expiration', {
                     name: "expiration"
@@ -101,4 +110,6 @@ append body
                     name: 'cargo',
                     required: true
                 })
-                +input('Submit')
+                +input('Submit', '', '', {
+                    value: 'Place order'
+                })

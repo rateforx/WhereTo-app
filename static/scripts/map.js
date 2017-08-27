@@ -24,10 +24,10 @@ function initMap() {
 
     function onPlaceChanged(inputAutocpmplete) {
         marker.setVisible(false);
-        // let place = originAutocomplete.getPlace();
         let place = inputAutocpmplete.getPlace();
 
-        console.log('Place: ' + place);
+        console.log('Place::');
+        console.log(place);
         if (!place.geometry) {
             console.log('No details available for input: "' + place.name + '".');
         }
@@ -40,8 +40,6 @@ function initMap() {
         }
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
-
-        //TODO wypełnianie pól forma
     }
 
     originAutocomplete.addListener('place_changed', () => {
@@ -70,12 +68,22 @@ function calcRoute(service, renderer) {
             travelMode: 'DRIVING'
         }, function (response, status) {
             if (status === 'OK') {
+
                 renderer.setDirections(response);
+
+                $('#dist').text(response.routes[0].legs[0].distance.text);
+                $('#duration').text(response.routes[0].legs[0].duration.text);
+
                 console.log('Route::');
                 console.log(response);
+
             } else {
                 console.log('Directions request failed due to ' + status);
             }
         });
     }
+}
+
+function onSubmitHandler() {
+
 }
