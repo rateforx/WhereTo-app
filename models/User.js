@@ -7,18 +7,53 @@ let db = require('./db');
 
 let User = {};
 
-User.findById = (id, callback) => {
+User.getAll = () => {
     db.execute(
-        'SELECT * FROM `users` WHERE id = ?',
-        [id],
-        (err, results, fields) => {
-            if (err) return console.warn(err.message);
+        'SELECT (`id`, `name`, `type`) FORM `users`',
+        [],
+        (error, results, fields) => {
+            if (error) return console.warn(error.message);
             console.log(results);
             console.log(fields);
-            callback();
         }
     )
-
 };
+
+User.findById = (id) => {
+    db.execute(
+        'SELECT (`id`, `name`, `type`) FROM `users` WHERE id = ?',
+        [id],
+        (error, results, fields) => {
+            if (error) return console.warn(error.message);
+            console.log(results);
+            console.log(fields);
+        }
+    )
+};
+
+User.add = (name, login, password, type) => {
+    db.execute(
+        'INSERT INTO `users` (`name`, `login`, `password`, `type`) VALUES (?, ?, ?, ?)',
+        [name, login, password, type],
+        (error, result) => {
+            if (error) return console.warn(error.message);
+            console.log(result.insertId);
+            return result.insertId;
+        }
+    )
+};
+
+User.login = (login, password) => {
+    db.execute(
+        'SELECT (`id`, `name`, `type`) FROM `users` WHERE login = ? AND password = ?',
+        [login, password],
+        (error, result, fields) => {
+            if (error) return console.warn(error.message);
+            console.log(result);
+            console.log(fields);
+        }
+    );
+};
+
 
 module.exports = User;

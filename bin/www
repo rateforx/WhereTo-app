@@ -7,7 +7,6 @@
 let app = require('../app');
 let debug = require('debug')('pugbootstrap-seed:server');
 let http = require('http');
-let mysql = require('mysql2');
 
 /**
  * Get port from environment and store in Express.
@@ -16,20 +15,18 @@ let port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP and mysql server.
+ * Create HTTP server.
  */
-let http_server = http.createServer(app);
-let mysql_server = mysql.createServer();
+let server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-http_server.listen(port);
-http_server.on('error', onError);
-http_server.on('listening', onListening);
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
-mysql_server.listen(3306);
 // mysql_server.on('connection', (conn) => {
 // });
 
@@ -86,7 +83,7 @@ function onError(error) {
  */
 
 function onListening() {
-    let addr = http_server.address();
+    let addr = server.address();
     let bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;

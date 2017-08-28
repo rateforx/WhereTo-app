@@ -82,8 +82,12 @@ append body
     .container
         +panel-primary('Order form')
             form(method='post')
-                +input('text', 'origin', 'Origin')
-                +input('text', 'dest', 'Destination')
+                +input('text', 'origin', 'Origin', {
+                    required: true
+                })
+                +input('text', 'dest', 'Destination', {
+                    required: true
+                })
 
                 #map
                     script(type = 'text/javascript', src = '/scripts/map.js')
@@ -92,24 +96,27 @@ append body
                     )
                 fieldset.form-group
                     label Distance
-                    p#dist N/A
-                input(type='hidden', name='dist')
+                    p#_dist N/A
+                //input#dist(type='hidden', name='dist')
 
                 fieldset.form-group
                     label Duration
-                    p#duration N/A
-                input(type='hidden', name='duration')
+                    p#_duration N/A
+                //input#duration(type='hidden', name='duration')
 
                 +input('date', 'exp', 'Expiration', {
-                    name: "expiration"
+                    name: "expiration",
+                    required: true
                 })
                 +input('number', 'weight', 'Weight', {
-                    name: "weight"
+                    name: "weight",
+                    required: true
                 })
                 +textarea('cargo', 'Cargo', {
                     name: 'cargo',
                     required: true
                 })
                 +input('Submit', '', '', {
-                    value: 'Place order'
+                    value: 'Place order',
+                    disabled: true
                 })
