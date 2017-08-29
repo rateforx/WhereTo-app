@@ -8,12 +8,35 @@ let Order = {};
 
 Order.getPending = () => {
     db.execute(
-        'SELECT (id, user_id, origin, dest, added, expires, weight, cargo) FROM `orders` WHERE status = `pending` ORDER BY added ASC',
+        `SELECT id, (
+            SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1
+        ) AS username, origin, dest, added, expires, weight, cargo 
+        FROM orders 
+        WHERE status = 'pending' 
+        ORDER BY added ASC`,
         [],
-        (error, results, fields) => {
-            if (error) return console.warn(error.message);
+        (error, results) => {
+            if (error) {
+                console.warn(error.message);
+                return;
+            }
             console.log(results);
-            console.log(fields);
+            return results;
+        }
+    )
+};
+
+Order.findById = (id) => {
+    db.execute(
+        'SELECT (id, user_id, origin, dest, added, expires, weight, cargo) FROM `orders` WHERE id = ? LIMIT 1',
+        [id],
+        (error, results) => {
+            if (error) {
+                console.warn(error.message);
+                return;
+            }
+            console.log(results);
+            return results[0];
         }
     )
 };
@@ -23,7 +46,10 @@ Order.cancel = (id) => {
         'UPDATE orders SET status = `canceled` WHERE id = ?',
         [id],
         (error) => {
-            if (error) return console.warn(error.message);
+            if (error) {
+                console.warn(error.message);
+                return;
+            }
         }
     )
 };

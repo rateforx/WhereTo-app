@@ -27,6 +27,7 @@ User.findById = (id) => {
             if (error) return console.warn(error.message);
             console.log(results);
             console.log(fields);
+            return results[0];
         }
     )
 };
