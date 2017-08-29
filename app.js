@@ -9,7 +9,7 @@ let bodyParser = require('body-parser');
 //     key: 'AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo'
 // });
 
-let routes = require('./routes/index');
+let routes = require('./routes/main');
 let orders = require('./routes/orders');
 
 let app = express();

@@ -74,7 +74,6 @@ function calcRoute(service, renderer) {
                 $('#dist').text(response.routes[0].legs[0].distance.text);
                 $('#duration').text(response.routes[0].legs[0].duration.text);
 
-
                 console.log('Route::');
                 console.log(response);
 

@@ -4,11 +4,12 @@
 
 let mysql = require('mysql2');
 
+
 let connection = mysql.createConnection({
-    host: 'http://rateforx.ddns.net',
+    host: 'rateforx.ddns.net',
     port: 3306,
-    user: 'root',
-    password: '',
+    user: 'outsider',
+    password: 'thisismyrifle',
     database: 'whereto',
 });
 

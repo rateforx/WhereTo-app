@@ -1,0 +1,6 @@
+extends ../../_bootstrap
+
+mixin order(id, username, origin, dest, added, expires, weight, cargo)
+    +accordion-item-default('FROM ' + origin + ' TO ' + dest, 'orders', 'false')
+        p Order added #{added} BY #{username}, expires #{expires}
+        p CARGO: #{cargo} WITH A WEIGHT OF #{weight}

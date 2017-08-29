@@ -3,8 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-
-    // res.render('orders', ) todo
+    res.render('orders')
 });
 router.get('/kupa', (req, res) => {
     res.send('dupa');
