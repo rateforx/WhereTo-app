@@ -6,39 +6,36 @@ let db = require('./db');
 
 let Order = {};
 
-Order.getPending = () => {
-    db.execute(
-        `SELECT id, (
+Order.getPending = function() {
+    return new Promise((resolve, reject) => {
+        db.execute(
+            `SELECT orders.id AS order_id, (
             SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1
-        ) AS username, origin, dest, added, expires, weight, cargo 
-        FROM orders 
-        WHERE status = 'pending' 
-        ORDER BY added ASC`,
-        [],
-        (error, results) => {
-            if (error) {
-                console.warn(error.message);
-                return;
+            ) AS username, origin, dest, added, weight, cargo 
+            FROM orders 
+            WHERE status = 'pending' 
+            ORDER BY added ASC`,
+            (err, results, fields) => {
+                    if (err !== null) return reject(err);
+                resolve(results);
             }
-            console.log(results);
-            return results;
-        }
-    )
+        );
+    });
 };
 
 Order.findById = (id) => {
-    db.execute(
-        'SELECT (id, user_id, origin, dest, added, expires, weight, cargo) FROM `orders` WHERE id = ? LIMIT 1',
-        [id],
-        (error, results) => {
-            if (error) {
-                console.warn(error.message);
-                return;
+    return new Promise((resolve, reject) => {
+        db.execute(
+            `SELECT (id AS order_id, (
+            SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1
+            ) AS username, origin, dest, added, expires, weight, cargo) FROM orders WHERE id = ? LIMIT 1`,
+            [id],
+            (error, results) => {
+                if (error) return reject(error);
+                resolve(results);
             }
-            console.log(results);
-            return results[0];
-        }
-    )
+        );
+    });
 };
 
 Order.cancel = (id) => {
@@ -48,7 +45,7 @@ Order.cancel = (id) => {
         (error) => {
             if (error) {
                 console.warn(error.message);
-                return;
+                throw error;
             }
         }
     )

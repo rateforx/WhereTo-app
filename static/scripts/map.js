@@ -83,3 +83,10 @@ function calcRoute(service, renderer) {
         });
     }
 }
+
+function initRoutePreview() {
+    let service = new google.maps.DirectionsService;
+    let renderer = new google.maps.DirectionsRenderer;
+    let map = new google.maps.Map($('#map')[0]);
+    renderer.setMap(map);
+}

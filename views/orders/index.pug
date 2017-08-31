@@ -1,12 +1,15 @@
 extends ../../_bootstrap
 
-include ../nav
-include _order
-
 append head
     title Orders | WhereTo
 
 append body
-    +accordion('orders')
-        each o in orders
-            +order(o.id, o.username, o.origin, o.dest, o.added, o.expires, o.weight, o.cargo)
+    include ../nav
+    include _order
+
+    block body
+        .container
+            +panel-primary('Pending orders')
+                .panel-group#accordion(role="tablist", aria-multiselectable="true")
+                    each o in orders
+                        +order(o.order_id, o.username, o.origin, o.dest, o.added, o.expires, o.weight, o.cargo)

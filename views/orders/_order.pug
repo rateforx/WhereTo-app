@@ -1,7 +1,26 @@
-extends ../../_bootstrap
+mixin order(order_id, username, origin, dest, added, weight, cargo)
 
-mixin order(id, username, origin, dest, added, expires, weight, cargo)
-    +accordion-item-default('FROM ' + origin + ' TO ' + dest, 'orders', 'false')
-        p Order added #{added} BY #{username}, expires #{expires}
-        p CARGO: #{cargo} WITH A WEIGHT OF #{weight}
-        +a-btn-primary('/orders/' + id) Go to order
+    .panel.panel-primary
+        .panel-heading(role="tab", id="heading" + order_id)
+            h4.panel-title
+                a(role="button", data-toggle="collapse", data-parent="#accordion", href="#collapse" + order_id, aria-expanded="true", aria-controls="collapseOne")
+                    p
+                        +icon('home')
+                        span #{origin}
+                    p
+                        +icon('flag')
+                        span #{dest}
+        .panel-collapse.collapse(id="collapse" + order_id, role="tabpanel", aria-labelledby="heading" + order_id)
+            .panel-body
+                p
+                    +icon('calendar')
+                    span #{added}
+                p
+                    +icon('leaf')
+                    span #{weight}
+                    +icon('gift')
+                    span #{cargo}
+                    +icon('user')
+                    span #{username}
+                +a-btn-primary('/orders/' + order_id)
+                    +icon('check')

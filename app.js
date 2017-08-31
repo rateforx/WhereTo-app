@@ -4,6 +4,7 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+let session = require('express-session');
 
 //let googleMapsClient = require('@google/maps').createClient({
 //     key: 'AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo'
@@ -11,6 +12,7 @@ let bodyParser = require('body-parser');
 
 let routes = require('./routes/main');
 let orders = require('./routes/orders');
+let users = require('./routes/users');
 
 let app = express();
 
@@ -19,15 +21,22 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /static
-//app.use(favicon(__dirname + '/static/favicon.ico'));
+// app.use(favicon(__dirname + '/static/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
+app.use(session({
+    secret: 'czerwona koza',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
 
 app.use('/', routes);
 app.use('/orders', orders);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

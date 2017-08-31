@@ -13,12 +13,7 @@ router.get('/', (req, res) => {
 router.get('/about', (req, res) => res.render('about'));
 router.get('/contact', (req, res) => res.render('contact'));
 
-router.get('/register', (req, res) => res.render('register'));
-router.post('/register', (req, res) => res.send(req.body));
-
-router.get('/place_order', (req, res) => res.render('place_order'));
-router.post('/place_order', (req, res) => res.send(req.body));
-
 router.get('/admin', (req, res) => res.sendStatus(401));
+router.get('/weed', (req, res) => res.sendStatus(420));
 
 module.exports = router;

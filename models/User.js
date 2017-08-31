@@ -3,58 +3,59 @@
  */
 
 let db = require('./db');
-// let schemas = require('./schemas');
 
 let User = {};
 
 User.getAll = () => {
-    db.execute(
-        'SELECT (`id`, `name`, `type`) FORM `users`',
-        [],
-        (error, results, fields) => {
-            if (error) return console.warn(error.message);
-            console.log(results);
-            console.log(fields);
-        }
-    )
+    return new Promise((resolve, reject) => {
+        db.execute(
+            'SELECT (`id`, `name`, `type`) FORM `users`',
+            [],
+            (error, results, fields) => {
+                if (error) return reject(error);
+                resolve(results);
+            }
+        )
+    })
 };
 
 User.findById = (id) => {
-    db.execute(
-        'SELECT (`id`, `name`, `type`) FROM `users` WHERE id = ?',
-        [id],
-        (error, results, fields) => {
-            if (error) return console.warn(error.message);
-            console.log(results);
-            console.log(fields);
-            return results[0];
-        }
-    )
+    return new Promise((resolve, reject) => {
+        db.execute(
+            'SELECT (`id`, `name`, `type`) FROM `users` WHERE id = ?',
+            [id],
+            (error, results, fields) => {
+                if (error) return reject(error);
+                resolve(results);
+            }
+        )
+    })
 };
 
 User.add = (name, login, password, type) => {
-    db.execute(
-        'INSERT INTO `users` (`name`, `login`, `password`, `type`) VALUES (?, ?, ?, ?)',
-        [name, login, password, type],
-        (error, result) => {
-            if (error) return console.warn(error.message);
-            console.log(result.insertId);
-            return result.insertId;
-        }
-    )
+    return new Promise((resolve, reject) => {
+        db.execute(
+            'INSERT INTO `users` (`name`, `login`, `password`, `type`) VALUES (?, ?, ?, ?)',
+            [name, login, password, type],
+            (error, result) => {
+                if (error) return reject(error);
+                resolve(result.insertId);
+            }
+        )
+    })
 };
 
 User.login = (login, password) => {
-    db.execute(
-        'SELECT (`id`, `name`, `type`) FROM `users` WHERE login = ? AND password = ?',
-        [login, password],
-        (error, result, fields) => {
-            if (error) return console.warn(error.message);
-            console.log(result);
-            console.log(fields);
-        }
-    );
+    return new Promise((resolve, reject) => {
+        db.execute(
+            'SELECT (`id`, `name`, `type`) FROM `users` WHERE login = ? AND password = ? LIMIT 1',
+            [login, password],
+            (error, result, fields) => {
+                if (error) return reject(error);
+                resolve(result);
+            }
+        );
+    })
 };
-
 
 module.exports = User;
