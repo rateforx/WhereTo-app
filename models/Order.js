@@ -26,9 +26,9 @@ Order.getPending = () => {
 Order.findById = (id) => {
     return new Promise((resolve, reject) => {
         db.execute(
-            `SELECT (id AS order_id, (
+            `SELECT id AS order_id, (
             SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1
-            ) AS username, origin, dest, added, expires, weight, cargo) FROM orders WHERE id = ? LIMIT 1`,
+            ) AS username, origin, dest, added, expires, weight, cargo FROM orders WHERE id = ? LIMIT 1`,
             [id],
             (err, results, fields) => {
                 if (err) return reject(err);

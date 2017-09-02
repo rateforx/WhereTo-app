@@ -11,7 +11,8 @@ append body
         form(method='post')
             +input('text', 'login', 'Login', {
                 name: 'login',
-                required: true
+                required: true,
+                autofocus: true
             })
             +input('password', 'password', 'Password', {
                 name: 'password',

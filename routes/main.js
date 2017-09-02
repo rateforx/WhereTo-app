@@ -5,10 +5,16 @@ let User = require('../models/User');
 let Offer = require('../models/Offer');
 let Order = require('../models/Order');
 
+router.get('*', (req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
+
 /* GET home page. */
 router.get('/', (req, res) => {
     res.render('index', {
-        session: JSON.stringify(req.session),
+        session: req.session,
+        session_string: JSON.stringify(req.session),
     });
 });
 

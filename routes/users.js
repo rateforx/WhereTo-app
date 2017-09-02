@@ -7,6 +7,11 @@ let router = express.Router();
 
 let User = require('../models/User');
 
+router.get('*', (req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
+
 router.get('/', (req, res) => {
     res.sendStatus(403);
     /*User.getAll().then((orders) => {
