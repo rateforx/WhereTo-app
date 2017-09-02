@@ -6,7 +6,7 @@ let db = require('./db');
 
 let Order = {};
 
-Order.getPending = function() {
+Order.getPending = () => {
     return new Promise((resolve, reject) => {
         db.execute(
             `SELECT orders.id AS order_id, (
@@ -30,12 +30,12 @@ Order.findById = (id) => {
             SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1
             ) AS username, origin, dest, added, expires, weight, cargo) FROM orders WHERE id = ? LIMIT 1`,
             [id],
-            (error, results) => {
-                if (error) return reject(error);
+            (err, results, fields) => {
+                if (err) return reject(err);
                 resolve(results);
             }
         );
-    });
+    })
 };
 
 Order.cancel = (id) => {

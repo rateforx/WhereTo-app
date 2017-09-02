@@ -1,8 +1,6 @@
 let express = require('express');
 let router = express.Router();
 
-let User = require('../models/User');
-let Offer = require('../models/Offer');
 let Order = require('../models/Order');
 
 router.get('/', (req, res) => {
@@ -25,6 +23,6 @@ router.get('/:order_id(\d+)', (req, res) => {
 });
 
 router.get('/place', (req, res) => res.render('orders/order_place'));
-router.put('/place', (req, res) => res.send(req.body));
+router.post('/place', (req, res) => res.send(req.body));
 
 module.exports = router;

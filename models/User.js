@@ -45,14 +45,14 @@ User.add = (name, login, password, type) => {
     })
 };
 
-User.login = (login, password) => {
+User.login = function (login, password) {
     return new Promise((resolve, reject) => {
         db.execute(
-            'SELECT (`id`, `name`, `type`) FROM `users` WHERE login = ? AND password = ? LIMIT 1',
+            'SELECT id, name, type FROM users WHERE login = ? AND password = ? LIMIT 1',
             [login, password],
             (error, result, fields) => {
-                if (error) return reject(error);
-                resolve(result);
+                if (error !== null) return reject(error);
+                resolve(result[0]);
             }
         );
     })

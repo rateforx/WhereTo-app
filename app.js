@@ -5,6 +5,7 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let session = require('express-session');
+let mysqlstore = require('express-mysql-session');
 
 //let googleMapsClient = require('@google/maps').createClient({
 //     key: 'AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo'
@@ -27,11 +28,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
+
+
+let sessionStore = new mysqlstore({
+    host: 'localhost',
+    post: 3306,
+    user: 'root',
+    password: '',
+    database: 'whereto'
+});
 app.use(session({
+    store: sessionStore,
     secret: 'czerwona koza',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
 }));
 
 app.use('/', routes);

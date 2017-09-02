@@ -7,7 +7,9 @@ let Order = require('../models/Order');
 
 /* GET home page. */
 router.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', {
+        session: JSON.stringify(req.session),
+    });
 });
 
 router.get('/about', (req, res) => res.render('about'));

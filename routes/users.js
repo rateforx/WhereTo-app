@@ -17,10 +17,11 @@ router.get('/', (req, res) => {
     });*/
 });
 
-router.get('/user', (req, res) => {
-    let order_id = req.params.order_id;
-    Order.findById(order_id).then((order) => {
+router.get('/user/:user_id', (req, res) => {
+    let user_id = req.params.user_id;
+    User.findById(user_id).then((order) => {
         console.log(order);
+
         res.render('orders/order_preview', {
             order: order,
         });
@@ -45,12 +46,15 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
     User.login(req.body.login, req.body.password).then((user) => {
         console.log(user);
-
-        req.session.user_id = user.id;
-        req.session.username = user.name;
-        req.session.type = user.type;
-
+        req.session.user = user;
         res.redirect('/');
+    }).catch(e => console.error(e));
+});
+
+router.get('/logout', (req, res) => {
+    req.session.destroy((error) => {
+        if (error) console.log(error);
+        else res.redirect('/');
     })
 });
 
