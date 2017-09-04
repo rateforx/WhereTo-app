@@ -31,15 +31,16 @@ Offer.findByUser = (user_id) => {
 };
 
 Offer.findByOrder = (order_id) => {
-    db.execute(
-        'SELECT (id, order_id, user_id, createdAt, value, status) FROM offers WHERE order_id = ?',
-        [order_id],
-        (error, results, fields) => {
-            if (error) return console.warn(error.message);
-            console.log(results);
-            console.log(fields);
-        }
-    )
+    return new Promise((resolve, reject) => {
+        db.execute(
+            'SELECT (id, order_id, user_id, createdAt, value, status) FROM offers WHERE order_id = ?',
+            [order_id],
+            (error, results, fields) => {
+                if (error) reject(error);
+                resolve(results);
+            }
+        )
+    })
 };
 
 Offer.highestBid = (order_id) => {
@@ -85,5 +86,21 @@ Offer.accept = (order_id, user_id) => {
         }
     )
 };
+
+Offer.getPending = (user_id) => {
+    return new Promise((resolve, reject) => {
+        db.execute(
+            `SELECT *, 
+                (SELECT orders.user_id FROM orders WHERE orders.id = offers.order_id) AS poster_id
+             FROM offers WHERE user_id = ?`,
+            [user_id],
+            (error, result) => {
+                if (error) return reject(error);
+                resolve(result);
+            }
+        );
+    })
+};
+
 
 module.exports = Offer;

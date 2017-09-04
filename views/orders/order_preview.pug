@@ -1,8 +1,61 @@
 extends ../../_bootstrap
 
-include ../nav
-
 append head
-    title #{origin} -> #{dest} (#{id}) | WhereTo
+    title
+        = o.origin + ' -> ' + o.dest + ' ( ' + o.order_id + ' ) | WhereTo'
 
 append body
+    include ../nav
+
+    .container
+        +panel-primary(o.origin + ' -> ' + o.dest + ' (#' + o.order_id + ')')
+
+            .flex-container
+                .flex-item
+                    p
+                        +icon('user')
+                        | #{o.username}
+                    p
+                        +icon('calendar')
+                        | #{o.added}
+                    p
+                        +icon('leaf')
+                        | #{o.weight}
+                    p
+                        +icon('gift')
+                        | #{o.cargo}
+
+                .flex-item
+                    if (typeof session.user != 'undefined')
+                        if (session.user.type == 'supplier')
+                            form(method='post', action='/orders/' + o.order_id + '/make')
+                                fieldset.form-group
+                                    label(for="value") Value
+                                    .input-group
+                                        if o.value != 0
+                                            .input-group-addon Current: #{o.value}
+                                        input.form-control#value(type="number", min="1", name="value", required='true', step='1', value='100')
+                                        .input-group-addon zł
+                                +modal('Please confirm', 'confirmModal')
+                                    | Push da button!
+                                    +input('submit', '', '', {
+                                        value: 'Make an offer'
+                                    })
+                            button.btn.btn-default(data-toggle='modal', data-target='#confirmModal') Make an offer
+
+                    else if session.user.type == 'client' && session.user.id == o.user_id
+                        p
+                        if o.value != 0
+                            | Lowest bid of #{o.value} by #{o.bidder_name}.
+                        else
+                            | No bids yet.
+                        form(method='post', action='/offers/' + o.order_id + 'accept')
+
+
+        +panel-info('Route preview')
+            -
+                var src ='https://www.google.com/maps/embed/v1/directions?';
+                src += 'origin=' + o.origin + '&';
+                src += 'destination=' + o.dest + '&';
+                src += 'key=' + 'AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo';
+            iframe(src=src, height='500px', width='100%')

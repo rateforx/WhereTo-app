@@ -7,9 +7,9 @@ block nav
             .collapse.navbar-collapse
 
                 ul.nav.navbar-nav
-                    +nav_item('orders') Orders
+                    +nav_item('/orders') Orders
                     //-+nav_item("about") About
-                    +nav_item("contact") Contact
+                    +nav_item("/contact") Contact
 
                 ul.nav.navbar-nav(style='float: right')
 
@@ -24,7 +24,7 @@ block nav
                     else
                         +nav_item('#')
                             +icon('user')
-                            | Hello, #{session.user.name}!
+                            | You are logged as #{session.user.type} #{session.user.name}.
                         +nav_item('/users/logout', 'btn-danger')
                             +icon('log-out')
                             | Logout

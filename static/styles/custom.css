@@ -2,6 +2,12 @@
     text-decoration: underline !important;
 }
 
-a:hover {
-    color: deepskyblue !important;
+.flex-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.flex-item {
+    display: inline;
 }

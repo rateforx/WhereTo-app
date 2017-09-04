@@ -26,10 +26,26 @@ Order.getPending = () => {
 Order.findById = (id) => {
     return new Promise((resolve, reject) => {
         db.execute(
-            `SELECT id AS order_id, (
-            SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1
-            ) AS username, origin, dest, added, expires, weight, cargo FROM orders WHERE id = ? LIMIT 1`,
+            `SELECT id AS order_id, user_id, value,
+            (SELECT users.name FROM users WHERE id = orders.bidder_id LIMIT 1) AS bidder_name,
+            (SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1) AS username, 
+            origin, dest, added, expires, weight, cargo FROM orders WHERE id = ? LIMIT 1`,
             [id],
+            (err, results, fields) => {
+                if (err) return reject(err);
+                resolve(results[0]);
+            }
+        );
+    })
+};
+
+Order.findByUser = (user_id) => {
+    return new Promise((resolve, reject) => {
+        db.execute(
+            `SELECT id AS order_id, (
+            SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1) AS username, 
+            origin, dest, added, expires, weight, cargo FROM orders WHERE user_id = ?`,
+            [user_id],
             (err, results, fields) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -45,7 +61,6 @@ Order.cancel = (id) => {
         (error) => {
             if (error) {
                 console.warn(error.message);
-                throw error;
             }
         }
     )
@@ -61,6 +76,26 @@ Order.place = (user_id, origin, dest, expires, weight, cargo) => {
             return result.insertId;
         }
     )
+};
+
+Order.makeOffer = (order_id, bidder_id, value) => {
+    db.execute(
+        `UPDATE orders SET bidder_id = ?, value = ? WHERE id = ?`,
+        [bidder_id, value, order_id],
+        (error) => {
+            console.warn(error.message);
+        }
+    );
+};
+
+Order.accept = (order_id) => {
+    db.execute(
+        `UPDATE orders SET status = 'accepted' WHERE id = ?`,
+        [order_id],
+        (error) => {
+            console.warn(error.message);
+        }
+    );
 };
 
 module.exports = Order;

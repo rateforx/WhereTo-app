@@ -34,6 +34,9 @@ router.get('/user/:user_id', (req, res) => {
 });
 
 router.get('/register', (req, res) => {
+    if (typeof req.session.user !== 'undefined')
+        res.sendStatus(403);
+
     res.render('users/register');
 });
 router.post('/register', (req, res) => {

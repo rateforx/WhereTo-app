@@ -12,4 +12,4 @@ append body
             +panel-primary('Pending orders')
                 .panel-group#accordion(role="tablist", aria-multiselectable="true")
                     each o in orders
-                        +order(o.order_id, o.username, o.origin, o.dest, o.added, o.expires, o.weight, o.cargo)
+                        +order(o.order_id, o.username, o.origin, o.dest, o.added, o.weight, o.cargo)
