@@ -22,7 +22,7 @@ block nav
                             | Login
 
                     else
-                        +nav_item('#')
+                        +nav_item('/users/profile')
                             +icon('user')
                             | You are logged as #{session.user.type} #{session.user.name}.
                         +nav_item('/users/logout', 'btn-danger')

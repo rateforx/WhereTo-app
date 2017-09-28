@@ -79,8 +79,8 @@ Offer.rise = (order_id, user_id, value) => {
 
 Offer.accept = (order_id, user_id) => {
     db.execute(
-        'UPDATE offers SET value = ? WHERE order_id = ? AND user_id = ?',
-        [value, order_id, user_id],
+        `'UPDATE offers SET status = 'accepted' WHERE order_id = ? AND user_id = ?`,
+        [order_id, user_id],
         (error) => {
             if (error) return console.warn(error.message);
         }

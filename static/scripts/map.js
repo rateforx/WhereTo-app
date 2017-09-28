@@ -51,7 +51,7 @@ function initMap() {
 
     renderer.setMap(map);
 
-    let onChangeHandler = function () {
+    let onChangeHandler = () => {
         calcRoute(service, renderer);
     };
     let inputs = $('#origin, #dest');
@@ -61,18 +61,19 @@ function initMap() {
 function calcRoute(service, renderer) {
     let origin = $('#origin').val();
     let dest = $('#dest').val();
+    console.info('Searching for route from ' + origin + ' to ' + dest + '.');
     if (origin !== '' && dest !== '') {
         service.route({
-            origin: origin,
-            destination: dest,
+            origin: /*$('#origin').val()*/origin,
+            destination: /*$('#dest').val()*/dest,
             travelMode: 'DRIVING'
         }, function (response, status) {
             if (status === 'OK') {
 
                 renderer.setDirections(response);
 
-                $('#dist').text(response.routes[0].legs[0].distance.text);
-                $('#duration').text(response.routes[0].legs[0].duration.text);
+                $('#_dist').text(response.routes[0].legs[0].distance.text);
+                $('#_duration').text(response.routes[0].legs[0].duration.text);
 
                 console.log('Route::');
                 console.log(response);

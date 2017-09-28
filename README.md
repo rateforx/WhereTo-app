@@ -12,5 +12,14 @@
 * Jeśli obie strony zgodzą się na warunki zlecenie zostaje przypisane przewoźnikowi.
 * Integracja z google maps api.
 * Trzy panele użytkownika: klient, przedsiębiorca, kierowca.
-* Pilnowanie godzin pracy kierowcy.
 * Kierowca aktualizuje status swojego zlecenia (w trasie, dostarczone).
+
+##poprawa
+
+* data początkowa, końcowa
+* wszystkie złożone oferty
+* odrzucanie ofert
+* zrealizowane zlecenia (przewoźnik)
+* przewoźnik szuka kierowcy zanim wyśle ofertę
+* query builder - flirtowanie
+* odległość trzymana w bazie

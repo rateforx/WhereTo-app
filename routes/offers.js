@@ -5,7 +5,7 @@
 let express = require('express');
 let router = express.Router();
 
-let Offer = require('../models/Offer');
+let Offer = require('../models/__Offer');
 
 router.get('*', (req, res, next) => {
     res.locals.session = req.session;

@@ -23,6 +23,7 @@
     "promise-mysql": "^3.0.2",
     "pug": "^2.0.0-rc.1",
     "pug-bootstrap": "^0.0.15",
+    "pug-plugin-try-catch": "^1.2.0",
     "sequelize": "^4.7.5",
     "serve-favicon": "~2.2.0",
     "uid-safe": "^2.1.5"

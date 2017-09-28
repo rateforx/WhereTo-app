@@ -1,18 +1,18 @@
 extends ../../_bootstrap
 
 append head
-    title Orders | WhereTo
+    title My orders | WhereTo
 
 append body
     include ../nav
-    include _order
 
     block body
         .container
-            +panel-primary('Pending orders')
+            +panel-success('Want something on the move?')
+                +a-btn-primary('/orders/place') Place new order
+            +panel-primary('My orders')
                 .panel-group#accordion(role="tablist", aria-multiselectable="true")
                     each o in orders
-                        //+order(o.order_id, o.username, o.origin, o.dest, o.added, o.weight, o.cargo)
                         .panel.panel-primary
                             //-HEADER
                             .panel-heading(role="tab", id="heading" + o.order_id)

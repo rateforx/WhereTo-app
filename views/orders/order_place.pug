@@ -81,12 +81,14 @@ append body
 
     .container
         +panel-primary('Order form')
-            form(method='post')
+            form(method='post', action='/orders/place')
                 +input('text', 'origin', 'Origin', {
-                    required: true
+                    required: true,
+                    name: 'origin'
                 })
                 +input('text', 'dest', 'Destination', {
-                    required: true
+                    required: true,
+                    name: 'dest'
                 })
 
                 #map
@@ -105,11 +107,11 @@ append body
                 //input#duration(type='hidden', name='duration')
 
                 +input('date', 'exp', 'Expiration', {
-                    name: "expiration",
+                    name: 'expires',
                     required: true
                 })
                 +input('number', 'weight', 'Weight', {
-                    name: "weight",
+                    name: 'weight',
                     required: true
                 })
                 +textarea('cargo', 'Cargo', {

@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 
 let User = require('../models/User');
-let Offer = require('../models/Offer');
+let Offer = require('../models/__Offer');
 let Order = require('../models/Order');
 
 router.get('*', (req, res, next) => {

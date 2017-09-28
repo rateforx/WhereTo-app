@@ -34,6 +34,7 @@ User.findById = (id) => {
 
 User.add = (name, login, password, type) => {
     return new Promise((resolve, reject) => {
+        if (type === 'client' || type === 'supplier') reject('nope');
         db.execute(
             'INSERT INTO `users` (`name`, `login`, `password`, `type`) VALUES (?, ?, ?, ?)',
             [name, login, password, type],
@@ -42,6 +43,28 @@ User.add = (name, login, password, type) => {
                 resolve(result.insertId);
             }
         )
+    })
+};
+User.addDriver = (name, login, password, supplier_id, maxWeight) => {
+    return new Promise((resolve, reject) => {
+        db.execute(
+            'INSERT INTO `users` (`name`, `login`, `password`, `type`) VALUES (?, ?, ?, "driver")',
+            [name, login, password],
+            (error, result) => {
+                if (error) return reject(error);
+                // resolve(result.insertId);
+                driver_id = result.insertId;
+
+                db.execute(
+                    'INSERT INTO `drivers` (user_id, super_id, maxWeight) VALUES (?, ?, ?)',
+                    [driver_id, supplier_id, maxWeight],
+                    (error, result) => {
+                        if (error) return reject(error);
+                        resolve(result.insertId);
+                    }
+                )
+            }
+        );
     })
 };
 

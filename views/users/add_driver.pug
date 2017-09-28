@@ -1,27 +1,14 @@
 extends ../../_bootstrap
 
 append head
-    title Register | Whereto
+    title Add driver | Whereto
 
 append body
     include ../nav
 
     .container
-        +panel-primary("Sign up form")
+        +panel-primary("Add driver form")
             form(method='post')
-
-                fieldset.form-group
-                    label(for='type') User type
-                    .btn-group#type(data-toggle="buttons")
-                        label.btn.btn-info.active
-                            input(type='radio', name='type', autocomplete='off', required, value='client', checked)
-                            |Client
-                        label.btn.btn-primary
-                            input(type='radio', name='type', autocomplete='off', required, value='supplier')
-                            |Supplier
-                        //-label.btn.btn-default
-                        //-    input(type='radio', name='type', autocomplete='off', required, value='driver')
-                        //-    |Driver
 
                 +input('text', 'name', 'Name', {
                     name: 'name',
@@ -40,5 +27,9 @@ append body
                     name: 'password',
                     required: true,
                     maxlength: 64
+                })
+                +input('number', 'maxWeight', 'Max weight', {
+                    name: 'maxWeight',
+                    required: true
                 })
                 +input('submit')
