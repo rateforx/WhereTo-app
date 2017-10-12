@@ -1,9 +1,9 @@
 let express = require('express');
 let router = express.Router();
 
-let User = require('../models/User');
-let Offer = require('../models/__Offer');
-let Order = require('../models/Order');
+// let User = require('../models/User');
+// let Offer = require('../models/__Offer');
+// let Order = require('../models/Order');
 
 router.get('*', (req, res, next) => {
     res.locals.session = req.session;
