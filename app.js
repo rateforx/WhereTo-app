@@ -6,6 +6,7 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let session = require('express-session');
 let mysqlstore = require('express-mysql-session');
+let pug = require('pug');
 
 //let googleMapsClient = require('@google/maps').createClient({
 //     key: 'AIzaSyC1tVc4lbElSKFHRRrngpVgB1lpkyD2qPo'

@@ -28,7 +28,7 @@ router.post('/place', (req, res) => {
     let weight = req.body.weight;
     let cargo = req.body.cargo;
 
-    Order.place(user_id, origin, dest, expires, weight, cargo).then((insertId) => {
+    Order.place(user_id, origin, dest, dist, expires, weight, cargo).then((insertId) => {
         res.redirect('/orders/' + insertId);
     });
 });

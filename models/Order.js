@@ -85,11 +85,11 @@ Order.cancel = (id) => {
     )
 };
 
-Order.place = (user_id, origin, dest, expires, weight, cargo) => {
+Order.place = (user_id, origin, dest, dist, expires, weight, cargo) => {
     return new Promise((resolve, reject) => {
         db.execute(
-            'INSERT INTO orders (user_id, origin, dest, expires, weight, cargo) VALUES (?, ?, ?, ?, ?, ?)',
-            [user_id, origin, dest, expires, weight, cargo],
+            'INSERT INTO orders (user_id, origin, dest, dist, expires, weight, cargo) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [user_id, origin, dest, dist, expires, weight, cargo],
             (error, result) => {
                 if (error) return reject(error);
                 resolve(result.insertId);

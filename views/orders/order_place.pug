@@ -33,10 +33,23 @@ append body
                     p#_duration N/A
                 //input#duration(type='hidden', name='duration')
 
-                +input('date', 'exp', 'Expiration', {
-                    name: 'expires',
-                    required: true
-                })
+                fieldset.form-group
+                    label(for='expInput') Expires
+                    .input-group.date#expPicker
+                        input.form-control#expInput(type="text", required=true, name='expires')
+                        span.input-group-addon
+                            span.glyphicon.glyphicon-calendar
+                        script.
+                            $(document).ready(function () {
+                                $('#expPicker').datepicker({
+                                    minDate: new Date()
+                                });
+                            });
+
+                //+input('date', 'exp', 'Expiration', {
+                //    name: 'expires',
+                //    required: true
+                //})
                 +input('number', 'weight', 'Weight', {
                     name: 'weight',
                     required: true
