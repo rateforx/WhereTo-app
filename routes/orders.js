@@ -20,6 +20,8 @@ router.get('/', (req, res) => {
 
 router.get('/place', (req, res) => res.render('orders/order_place'));
 router.post('/place', (req, res) => {
+    res.send(req.toJSON());
+
     if (!req.session.user) res.redirect('/users/login');
     let user_id = req.session.user.id;
     let origin = req.body.origin;

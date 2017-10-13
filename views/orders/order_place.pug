@@ -34,22 +34,26 @@ append body
                 //input#duration(type='hidden', name='duration')
 
                 fieldset.form-group
+                    label(for='beginsInput') Begins
+                    .input-group.date#beginsPicker
+                        input.form-control#beginsInput(type="text", required=true, name='begins')
+                        span.input-group-addon
+                            span.glyphicon.glyphicon-calendar
+
+                fieldset.form-group
                     label(for='expInput') Expires
                     .input-group.date#expPicker
                         input.form-control#expInput(type="text", required=true, name='expires')
                         span.input-group-addon
                             span.glyphicon.glyphicon-calendar
-                        script.
-                            $(document).ready(function () {
-                                $('#expPicker').datepicker({
-                                    minDate: new Date()
-                                });
-                            });
 
-                //+input('date', 'exp', 'Expiration', {
-                //    name: 'expires',
-                //    required: true
-                //})
+                script.
+                    $(document).ready(function () {
+                        $('#beginsPicker, #expPicker').datepicker({
+                            minDate: new Date()
+                        });
+                    });
+
                 +input('number', 'weight', 'Weight', {
                     name: 'weight',
                     required: true

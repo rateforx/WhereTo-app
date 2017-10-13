@@ -25,7 +25,6 @@ function initMap() {
     function onPlaceChanged(inputAutocpmplete) {
         marker.setVisible(false);
         let place = inputAutocpmplete.getPlace();
-
         console.log('Place::');
         console.log(place);
         if (!place.geometry) {
@@ -64,8 +63,8 @@ function calcRoute(service, renderer) {
     console.info('Searching for route from ' + origin + ' to ' + dest + '.');
     if (origin !== '' && dest !== '') {
         service.route({
-            origin: /*$('#origin').val()*/origin,
-            destination: /*$('#dest').val()*/dest,
+            origin: origin,
+            destination: dest,
             travelMode: 'DRIVING'
         }, function (response, status) {
             if (status === 'OK') {
