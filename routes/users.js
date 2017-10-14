@@ -8,6 +8,7 @@ let router = express.Router();
 let User = require('../models/User');
 let Order = require('../models/Order');
 let Driver = require('../models/Driver');
+let Offer = require('../models/Offer');
 
 router.get('*', (req, res, next) => {
     res.locals.session = req.session;
@@ -114,7 +115,19 @@ router.get('/profile', (req, res) => {
             break;
 
         case 'driver':
-            Driver.getAJob(user_id).then((order_id) => {
+            Driver.getSuperId(user_id).then((super_id) => {
+                User.findById(super_id).then((superuser) => {
+                    Offer.findByUser(super_id).then((offers) => {
+                        res.render('users/_driver', {
+                            offers: offers,
+                            user: req.session.user,
+                            superuser: superuser,
+                        });
+                    })
+                })
+            });
+
+            /*Driver.getAJob(user_id).then((order_id) => {
                 Order.findById(order_id).then((order) => {
                     console.log(order);
                     res.render('users/_driver', {
@@ -123,7 +136,7 @@ router.get('/profile', (req, res) => {
                     });
                     }
                 )
-            })
+            })*/
     }
 });
 

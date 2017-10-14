@@ -19,15 +19,16 @@ Offer.findById = (id) => {
 };
 
 Offer.findByUser = (user_id) => {
-    db.execute(
-        'SELECT (id, order_id, user_id, createdAt, value, status) FROM offers WHERE user_id = ?',
-        [user_id],
-        (error, results, fields) => {
-            if (error) return console.warn(error.message);
-            console.log(results);
-            console.log(fields);
-        }
-    )
+    return new Promise((resolve, reject) => {
+        db.execute(
+            'SELECT * FROM offers WHERE user_id = ?',
+            [user_id],
+            (error, results, fields) => {
+                if (error) reject(error);
+                resolve(results);
+            }
+        )
+    });
 };
 
 Offer.findByOrder = (order_id) => {

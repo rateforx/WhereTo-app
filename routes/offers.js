@@ -5,7 +5,7 @@
 let express = require('express');
 let router = express.Router();
 
-let Offer = require('../models/__Offer');
+let Offer = require('../models/Offer');
 
 router.get('*', (req, res, next) => {
     res.locals.session = req.session;
@@ -19,7 +19,8 @@ router.post('/make/:order_id', (req, res) => {
         let value = req.body.value;
         Offer.make(order_id, user_id, value);
 
-        res.send('Offer for ' + value + ' to an order #' + order_id + ' has been sent.');
+        // res.send('Offer for ' + value + ' to an order #' + order_id + ' has been sent.');
+        res.redirect('/orders/' + order_id)
     } else {
         res.redirect('/users/login');
     }

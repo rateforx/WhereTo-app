@@ -30,7 +30,7 @@ append body
                         case o.status
 
                             when 'pending'
-                                form(method='post', action='/orders/' + o.order_id + '/make')
+                                form(method='post', action='/offers/make/' + o.order_id)
                                     fieldset.form-group
                                         label(for="value") Value
                                         .input-group
@@ -51,7 +51,6 @@ append body
 
                             when 'accepted'
                                 form(method='post', action='/orders/' + o.order_id + '/make')
-
 
 
                     else if session.user.type == 'client' && session.user.id == o.user_id

@@ -22,6 +22,19 @@ Driver.findBySuper = (super_id) => {
     })
 };
 
+Driver.getSuperId = (user_id) => {
+    return new Promise((resolve, reject) => {
+        db.execute(
+            `SELECT super_id FROM drivers WHERE user_id = ?`,
+            [user_id],
+            (error, result) => {
+                if (error !== null) return reject(error);
+                resolve(result[0].super_id);
+            }
+        )
+    })
+};
+
 Driver.getAJob = (user_id) => {
     return new Promise((resolve, require) => {
         db.execute(

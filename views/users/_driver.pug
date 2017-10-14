@@ -6,8 +6,29 @@ append head
 append body
     include ../nav
 
+
+
     block body
         .container
+            +panel-primary('Available jobs')
+                .panel-group#accordion(role='tablist', aria-multiselectable='true')
+                    if offers != undefined
+                        each offer in offers
+                            .panel.panel-primary
+                                //-HEADER
+                                .panel-heading(role='tab', id='heading' + offer.id)
+                                    h4.panel-title
+                                        a(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapse' + offer.id, aria-expanded='true', aria-controls='collapseOne')
+                                            p Offer title
+                                //-BODY
+                                .panel-collapse.collapse(id='collapse' + offer.id, role='tabpanel', aria-labelledby='heading' + offer.id)
+                                    .panel-body.flex-container
+                                        a(href='/orders/' + offer.order_id)
+                                            p Go to order
+                                        p Value:
+                                            b #{offer.value}
+
+        //.container
             +panel-primary('Where to next?')
                 .panel-group#accordion(role="tablist", aria-multiselectable="true")
                     if order != undefined
