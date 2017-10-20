@@ -23,12 +23,21 @@ append body
                                 //-BODY
                                 .panel-collapse.collapse(id='collapse' + offer.id, role='tabpanel', aria-labelledby='heading' + offer.id)
                                     .panel-body.flex-container
-                                        a(href='/orders/' + offer.order_id)
-                                            p Go to order
-                                        p Value:
-                                            b #{offer.value}
+                                        .flex-item
+                                            a(href='/orders/' + offer.order_id)
+                                                p Go to order
+                                            p Value:
+                                                b #{offer.value}
+                                        .flex-item
+                                            form(action='/offers/' + order.order_id + '/', method='post')
+                                                button.btn.btn-default(data-toggle='modal', data-target='#confirmModal') Confirm delivery
+                                                +modal('Please confirm', 'confirmModal')
+                                                    p We're all done here
+                                                    +input('submit', '', '', {
+                                                        value: 'Over and out'
+                                                    })
 
-        //.container
+        //-.container
             +panel-primary('Where to next?')
                 .panel-group#accordion(role="tablist", aria-multiselectable="true")
                     if order != undefined

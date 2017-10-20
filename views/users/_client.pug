@@ -31,8 +31,14 @@ append body
                                     //-LEFT SIDE
                                     .flex-item
                                         p
+                                            +icon('road')
+                                            span #{o.dist / 1000} km
+                                        p
+                                            | Valid since:
+                                            span #{o.begins}
+                                        p
                                             +icon('calendar')
-                                            span #{o.added}
+                                            span #{o.expires}
                                         p
                                             +icon('leaf')
                                             span #{o.weight}
@@ -41,7 +47,7 @@ append body
                                             span #{o.cargo}
                                         p
                                             +icon('user')
-                                            span #{o.username}
+                                            span #{o.name}
 
                                     .flex-item
                                         +a-btn-primary('/orders/' + o.order_id)

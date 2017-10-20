@@ -6,6 +6,7 @@ let express = require('express');
 let router = express.Router();
 
 let Offer = require('../models/Offer');
+let Driver = require('../models/Driver');
 
 router.get('*', (req, res, next) => {
     res.locals.session = req.session;
@@ -13,7 +14,7 @@ router.get('*', (req, res, next) => {
 });
 
 router.post('/make/:order_id', (req, res) => {
-    if (typeof req.session.user !== 'undefined') {
+    if (typeof req.session.user !== undefined) {
         let order_id = req.params.order_id;
         let user_id = req.session.user.id;
         let value = req.body.value;
@@ -23,6 +24,17 @@ router.post('/make/:order_id', (req, res) => {
         res.redirect('/orders/' + order_id)
     } else {
         res.redirect('/users/login');
+    }
+});
+
+router.post('/take/:offer_id', (req, res) => {
+    if (typeof req.session.user !== undefined) {
+        let offer_id = req.params.offer_id;
+        let user_id = req.session.user.id;
+
+        Driver.findByUserId(user_id).then((driver) => {
+            
+        })
     }
 });
 

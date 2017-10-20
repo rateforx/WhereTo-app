@@ -13,17 +13,23 @@ append body
             .flex-container
                 .flex-item
                     p
+                        +icon('road')
+                        span #{o.dist / 1000} km
+                    p
                         +icon('user')
-                        | #{o.username}
+                        span #{o.name}
+                    p
+                        | Valid from:
+                        span #{o.begins}
                     p
                         +icon('calendar')
-                        | #{o.added}
+                        span #{o.expires}
                     p
                         +icon('leaf')
-                        | #{o.weight}
+                        span #{o.weight}
                     p
                         +icon('gift')
-                        | #{o.cargo}
+                        span #{o.cargo}
 
                 .flex-item
                     if session.user.type == 'supplier'

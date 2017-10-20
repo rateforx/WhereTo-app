@@ -103,5 +103,16 @@ Offer.getPending = (user_id) => {
     })
 };
 
+Offer.setDriver = (offer_id, driver_id) => {
+    return new Promise((resolve, reject) => {
+        db.execute(
+            `UPDATE offers SET driver_id = ? WHERE id = ?`,
+            [driver_id, offer_id],
+            (error) => {
+                if (error !== null) return reject(error);
+            }
+        );
+    })
+};
 
 module.exports = Offer;

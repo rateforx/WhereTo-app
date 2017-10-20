@@ -9,13 +9,14 @@ let Order = {};
 Order.getPending = () => {
     return new Promise((resolve, reject) => {
         db.execute(
-            `SELECT id AS order_id, user_id, value, status,
+            `SELECT * FROM orders CROSS JOIN users ON orders.user_id = users.user_id AND orders.status = 'pending'`,
+            /*`SELECT id AS order_id, user_id, value, status,
             (SELECT users.name FROM users WHERE id = orders.bidder_id LIMIT 1) AS bidder_name,
             (SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1) AS username, 
             origin, dest, createdAt, expires, weight, cargo FROM orders 
             WHERE status = 'pending' 
-            ORDER BY createdAt ASC`,
-            (err, results, fields) => {
+            ORDER BY createdAt ASC`,*/
+            (err, results) => {
                     if (err !== null) return reject(err);
                 resolve(results);
             }
@@ -26,12 +27,13 @@ Order.getPending = () => {
 Order.findById = (id) => {
     return new Promise((resolve, reject) => {
         db.execute(
-            `SELECT id AS order_id, user_id, value, status,
+            `SELECT * FROM orders CROSS JOIN users ON orders.user_id = users.user_id AND orders.order_id = ? LIMIT 1`,
+            /*`SELECT id AS order_id, user_id, value, status,
             (SELECT users.name FROM users WHERE id = orders.bidder_id LIMIT 1) AS bidder_name,
             (SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1) AS username, 
-            origin, dest, createdAt, expires, weight, cargo FROM orders WHERE id = ? LIMIT 1`,
+            origin, dest, createdAt, expires, weight, cargo FROM orders WHERE id = ? LIMIT 1`,*/
             [id],
-            (err, results, fields) => {
+            (err, results) => {
                 if (err) return reject(err);
                 resolve(results[0]);
             }
@@ -42,12 +44,13 @@ Order.findById = (id) => {
 Order.findByUser = (user_id) => {
     return new Promise((resolve, reject) => {
         db.execute(
-            `SELECT id AS order_id, user_id, value, status,
+            `SELECT * FROM orders CROSS JOIN users ON orders.user_id = users.user_id AND orders.user_id = ?`,
+            /*`SELECT id AS order_id, user_id, value, status,
             (SELECT users.name FROM users WHERE id = orders.bidder_id LIMIT 1) AS bidder_name,
             (SELECT users.name FROM users WHERE id = orders.user_id LIMIT 1) AS username, 
-            origin, dest, createdAt, expires, weight, cargo FROM orders WHERE user_id = ?`,
+            origin, dest, createdAt, expires, weight, cargo FROM orders WHERE user_id = ?`,*/
             [user_id],
-            (err, results, fields) => {
+            (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             }
@@ -65,7 +68,7 @@ Order.findAccepted = (bidder_id) => {
             FROM orders 
             WHERE bidder_id = ? AND status = 'accepted'`,
             [bidder_id],
-            (err, results, fields) => {
+            (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             }

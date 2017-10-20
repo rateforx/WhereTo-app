@@ -22,7 +22,7 @@ User.getAll = () => {
 User.findById = (id) => {
     return new Promise((resolve, reject) => {
         db.execute(
-            'SELECT (`id`, `name`, `type`) FROM `users` WHERE id = ?',
+            'SELECT id, name, type FROM users WHERE id = ?',
             [id],
             (error, results, fields) => {
                 if (error) return reject(error);

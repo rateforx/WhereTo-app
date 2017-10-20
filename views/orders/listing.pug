@@ -9,9 +9,59 @@ append body
 
     block body
         .container
-            +panel-primary('Pending orders')
-                .panel-group#accordion(role="tablist", aria-multiselectable="true")
+            table.table-responsive.table#table
+                thead
+                    tr
+                        th
+                            +icon('home')
+                            | From
+                        th
+                            +icon('flag')
+                            | To
+                        th
+                            +icon('road')
+                            | Distance
+                        th
+                            +icon('user')
+                            | By
+                        th
+                            | Valid since:
+                        th
+                            +icon('calendar')
+                            | Expires
+                        th
+                            +icon('leaf')
+                            | Weight
+                        th
+                            +icon('gift')
+                            | Cargo
+                        th
+                            +icon('share-alt')
+                            | Go
+                tbody
                     each o in orders
+                        tr
+                            td #{o.origin}
+                            td #{o.dest}
+                            td #{o.dist / 1000} km
+                            td #{o.name}
+                            td #{o.begins}
+                            td #{o.expires}
+                            td #{o.weight}
+                            td #{o.cargo}
+                            td
+                                +a-btn-primary('/orders/' + o.order_id)
+                                    +icon('check')
+            #pager
+            script.
+                $(document).ready(function () {
+                    $('#table')
+                        .tablesorter()
+                        .tablesorterPager({container: $('#pager')})
+                })
+
+            //-+panel-primary('Pending orders')
+                .panel-group#accordion(role="tablist", aria-multiselectable="true")
                         //+order(o.order_id, o.username, o.origin, o.dest, o.added, o.weight, o.cargo)
                         .panel.panel-primary
                             //-HEADER
@@ -31,8 +81,11 @@ append body
                                     //-LEFT SIDE
                                     .flex-item
                                         p
+                                            | Valid since:
+                                            span #{o.begins}
+                                        p
                                             +icon('calendar')
-                                            span #{o.added}
+                                            span #{o.expires}
                                         p
                                             +icon('leaf')
                                             span #{o.weight}
@@ -41,7 +94,7 @@ append body
                                             span #{o.cargo}
                                         p
                                             +icon('user')
-                                            span #{o.username}
+                                            span #{o.name}
 
                                     .flex-item
                                         +a-btn-primary('/orders/' + o.order_id)

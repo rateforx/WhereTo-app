@@ -6,6 +6,19 @@ let db = require('./db');
 
 let Driver = {};
 
+Driver.findByUserId = (user_id) => {
+    return new Promise((resolve, reject) => {
+        db.execute(
+            `SELECT * FROM drivers WHERE user_id = ?`,
+            [user_id],
+            (error, result) => {
+                if (error !== null) return reject(error);
+                resolve(result);
+            }
+        )
+    })
+};
+
 Driver.findBySuper = (super_id) => {
     return new Promise((resolve, reject) => {
         db.execute(
